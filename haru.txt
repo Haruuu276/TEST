@@ -1,15 +1,12 @@
---// Services
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
---// Player Info
 local player = Players.LocalPlayer
 local mouse = player:GetMouse()
 
---// Egg Pet Data
 local EggPets = {
     ["Common Egg"] = { "Dog", "Bunny", "Golden Lab" },
     ["Uncommon Egg"] = { "Chicken", "Black Bunny", "Cat", "Deer" },
@@ -32,11 +29,9 @@ local BestPets = {
     ["Mimic Octopus"] = true
 }
 
---// Globals
 local ESP_ENABLED = true
 local PetMemory = {}
 
---// Visual Utilities
 local function glitchEffect(label)
     coroutine.wrap(function()
         local original = label.TextColor3
@@ -59,7 +54,6 @@ local function flash(button)
     end
 end
 
---// ESP Management
 local function createESP(model, petName)
     local base = model:FindFirstChildWhichIsA("BasePart")
     if not base then return end
@@ -119,7 +113,6 @@ local function removeESP(model)
     end
 end
 
---// Egg Scanning & Randomizing
 local function getNearbyEggs(radius)
     local eggs = {}
     local root = (player.Character or player.CharacterAdded:Wait()):FindFirstChild("HumanoidRootPart")
@@ -151,7 +144,6 @@ local function randomizeEggs()
     print("Randomized", #eggs, "eggs.")
 end
 
---// UI Creation
 local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
 gui.Name = "PetESPGui"
 
@@ -175,7 +167,6 @@ drag.Size = UDim2.new(1, 0, 1, 0)
 drag.Text = ""
 drag.BackgroundTransparency = 1
 
--- Drag logic
 local dragging, offset
 drag.MouseButton1Down:Connect(function()
     dragging = true
@@ -188,7 +179,6 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
--- Buttons
 local function createButton(text, posY, color, onClick)
     local btn = Instance.new("TextButton", frame)
     btn.Size = UDim2.new(1, -20, 0, 40)
